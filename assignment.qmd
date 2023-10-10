@@ -49,10 +49,6 @@ impeach %>%
   summarise(count = n())
 
 # For this question, I had to remind myself how to use the summarise function to add up the number of people in each group by using the n() command. Once I figured that out, I simply added that to the grouping function. 
-
-
-
-
 ```
 
 2)  Similar to #1 above, using grouping to now break down the Democratic House members by TWO measures: those who are for or against impeachment (as you did above)....and then districts above/below national GDP.  
@@ -66,13 +62,6 @@ impeach %>%
   summarise(count = n())
 
 # Similar to the first question, I used the summarise and count functions and simply added the column for national gdp in order to establish four groups and find how many Democrats are in each: for impeachment and below national gdp, for impeachment and above national gdp, against impeachment and above national gdp, and against impeachment and below national gdp. 
-
-
-
-
-
-
-
 ```
 
 3)  Now do the same as #2, but this time instead of GDP, group by whether the district is above or below the national average for the percentage of college graduates. The column that captures this information is `pct_bachelors_compared_to_national`.
@@ -84,13 +73,6 @@ impeach %>%
   summarise(count = n())
 
 # I used the same process as the last question, but simply switched out the national gdp column for the pct_bachelors_compared_to_national column and made four groups with their counts: for impeachment and below the national average for the percentage of college graduates, for impeachment and above the national average for the percentage of college graduates, against impeachment and above the national average for the percentage of college graduates, and against impeachment and below the national average for the percentage of college graduates. 
-
-
-
-
-
-
-
 ```
 
 4)  Let's look at the college graduation comparison in a slightly different way.  
@@ -106,13 +88,6 @@ impeach %>%
   summarise(av_percent = mean(pct_bachelors))
 
 # For this question, I had to go back to the mean function in order to find the average, or mean, of the percentage of college grads for districts that are yes vs. no for impeachment. 
-
-
-
-
-
-
-
 ```
 
 5)  Do the same as #4, but this time show the MEAN *percentage of the vote that Donald Trump received* for districts that are Yes for impeachment vs. No.  
@@ -125,7 +100,6 @@ impeach %>%
   summarise(av_percent_trumpvotes = mean(trump_percent))
 
 # I essentially used the same commands as the last question, this time substituting to find the average percentage of the votes for Donald Trump in districts for and against impeachment. 
-
 ```
 
 6)  Filter out only the members who are a yes for impeachment. Then of those "Yes" member, how many won their 2018 election by less than 5 percentage points (`margin_flag_2018`) vs. more?
@@ -139,56 +113,41 @@ impeach %>%
 
 # This question took a few more commands. In order of how it makes sense in my head, I first filtered out for those in favor of impeachment, then grouped by more and less than 5 percentage points, and then did the count command. The sequential process of it helped me. 
 
-
-
-
-
-
-
 ```
 
 7)  Come up with another breakdown of your choosing for how you'd like to examine this dataset. Say what you'll look at, and then put the code below to find the answer.
 
 ```{r}
 
+impeach %>% 
+  group_by(for_impeachment) %>%
+  summarise(av_age = mean(median_age))
   
-
-
-
-
-
-
-
+# For this analysis, I decided to look at the median age of the districts where the Democrats said they were against and for impeachment in order to see if that decision is influenced by a higher age or not. I used the mean and grouping functions for that. As the results show, there is not too much of a difference in age influencing the opinion for or against impeachment. 
 ```
 
-7)  You'll see a column in the table called date_announced. For members who came out as a Yes for impeachment, this is the date they announced their support for it.  
+8)  You'll see a column in the table called date_announced. For members who came out as a Yes for impeachment, this is the date they announced their support for it.  
   
 Use the mutate() function to create two new columns: one that extracts the year from date_announced, and a second that extracts the month.
 
 ```{r}
 
+impeach %>%
+  mutate(year_announced = as.integer(substr(date_announced, 1, 4))) %>% 
+  mutate(month_announced = as.integer(substr(date_announced, 6, 7)))
   
-
-
-
-
-
-
-
+# This one was a little tricky for me. I ended up using the substring functions and selecting only the numbers I wanted from the date in order to make the new columns. This one took me some digging on the R Help guide and knowing what I could possibly do to use the mutate function to the best of my ability. 
 ```
 
-8) Using the new columns you created in #7, use grouping to count up how many House Democrats during each month announced their support of impeachment.
+9) Using the new columns you created in #7, use grouping to count up how many House Democrats during each month announced their support of impeachment.
 
 ```{r}
+impeach %>%
+  mutate(month_announced = as.integer(substr(date_announced, 6, 7))) %>%
+  group_by(month_announced) %>%
+  summarise(count = n())
 
-  
-
-
-
-
-
-
-
+# For this one, I essentially combined everything we learned and put it all together in this last question to make a new column for just the month, group it by just that column, and see how many were in each month. Again, this one took a minute for me to solve, but I found a way. 
 ```
 
 
