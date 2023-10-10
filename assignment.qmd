@@ -1,6 +1,6 @@
 ---
 title: "R Assignment #3"
-author: "Put Your Name Here"
+author: "Avril Silva"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 format:
   html:
@@ -44,7 +44,11 @@ Write your code using grouping in the chunks below to help answer the following 
 
 ```{r}
 
+impeach %>% 
+  group_by(for_impeachment) %>% 
+  summarise(count = n())
 
+# For this question, I had to remind myself how to use the summarise function to add up the number of people in each group by using the n() command. Once I figured that out, I simply added that to the grouping function. 
 
 
 
@@ -57,8 +61,11 @@ You'll want to ensure you do the grouping on both columns together, e.g. `group_
 
 ```{r}
 
+impeach %>% 
+  group_by(for_impeachment, gdp_above_national) %>% 
+  summarise(count = n())
 
-
+# Similar to the first question, I used the summarise and count functions and simply added the column for national gdp in order to establish four groups and find how many Democrats are in each: for impeachment and below national gdp, for impeachment and above national gdp, against impeachment and above national gdp, and against impeachment and below national gdp. 
 
 
 
@@ -72,8 +79,11 @@ You'll want to ensure you do the grouping on both columns together, e.g. `group_
 
 ```{r}
 
+impeach %>% 
+  group_by(for_impeachment, pct_bachelors_compared_to_national) %>% 
+  summarise(count = n())
 
-
+# I used the same process as the last question, but simply switched out the national gdp column for the pct_bachelors_compared_to_national column and made four groups with their counts: for impeachment and below the national average for the percentage of college graduates, for impeachment and above the national average for the percentage of college graduates, against impeachment and above the national average for the percentage of college graduates, and against impeachment and below the national average for the percentage of college graduates. 
 
 
 
