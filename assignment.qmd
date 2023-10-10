@@ -101,7 +101,11 @@ In other words, you want to end up with the calculated mean for what that percen
 
 ```{r}
 
+impeach %>% 
+  group_by(for_impeachment) %>% 
+  summarise(av_percent = mean(pct_bachelors))
 
+# For this question, I had to go back to the mean function in order to find the average, or mean, of the percentage of college grads for districts that are yes vs. no for impeachment. 
 
 
 
@@ -116,14 +120,11 @@ The relevant column for that is `trump_percent`.
 
 ```{r}
 
+impeach %>% 
+  group_by(for_impeachment) %>% 
+  summarise(av_percent_trumpvotes = mean(trump_percent))
 
-
-
-
-
-
-
-
+# I essentially used the same commands as the last question, this time substituting to find the average percentage of the votes for Donald Trump in districts for and against impeachment. 
 
 ```
 
@@ -131,7 +132,12 @@ The relevant column for that is `trump_percent`.
 
 ```{r}
 
-  
+impeach %>% 
+  filter(for_impeachment == "YES") %>% 
+  group_by(margin_flag_2018) %>%
+  summarise(count = n())
+
+# This question took a few more commands. In order of how it makes sense in my head, I first filtered out for those in favor of impeachment, then grouped by more and less than 5 percentage points, and then did the count command. The sequential process of it helped me. 
 
 
 
